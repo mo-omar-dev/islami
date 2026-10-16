@@ -11,12 +11,19 @@ class Zikr {
     required this.content,
   });
 
+  static String _clean(String text) {
+    return text
+        .replaceAll(RegExp(r"\\n',\s*'"), '\n')
+        .replaceAll(RegExp(r'\n\s*\n+'), '\n')
+        .trim();
+  }
+
   factory Zikr.fromJson(Map<String, dynamic> json) {
     return Zikr(
       category: json['category'],
       count: int.tryParse(json['count'].toString()) ?? 1,
       description: json['description'] ?? '',
-      content: json['content'],
+      content: _clean(json['content']),
     );
   }
 }

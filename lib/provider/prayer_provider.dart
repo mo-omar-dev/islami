@@ -1,10 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:islami_app/api_manager/api_manager_prayer.dart';
 import 'package:islami_app/time/prayer_response.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class PrayerProvider extends ChangeNotifier {
   PrayerResponse? prayerData;
   bool isLoading = false;
+  bool adhanEnabled = false;
+
+  PrayerProvider() {
+    _loadAdhanSetting();
+  }
+
+  Future<void> _loadAdhanSetting() async {
+    final prefs = await SharedPreferences.getInstance();
+    adhanEnabled = prefs.getBool('adhan_enabled') ?? false;
+    notifyListeners();
+  }
+
+  Future<void> toggleAdhan() async {
+    adhanEnabled = !adhanEnabled;
+    notifyListeners();
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setBool('adhan_enabled', adhanEnabled);
+  }
+
   String? errorMessage;
   List<MapEntry<String, String>> get prayerList {
     final t = prayerData?.timings;

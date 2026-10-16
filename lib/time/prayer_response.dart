@@ -56,11 +56,13 @@ class DateInfo {
   final String weekday;
   final String month;
   final String year;
+  final int monthNumber;
 
   DateInfo({
     required this.day,
     required this.weekday,
     required this.month,
+    required this.monthNumber,
     required this.year,
   });
 
@@ -69,7 +71,23 @@ class DateInfo {
       day: json['day'],
       weekday: json['weekday']['en'],
       month: json['month']['en'],
+      monthNumber: json['month']['number'],
       year: json['year'],
     );
   }
 }
+
+const hijriMonthsShort = [
+  'Muh', // 1  محرم
+  'Saf', // 2  صفر
+  'Rab I', // 3  ربيع الأول
+  'Rab II', // 4  ربيع الآخر
+  'Jum I', // 5  جمادى الأولى
+  'Jum II', // 6  جمادى الآخرة
+  'Raj', // 7  رجب
+  'Sha', // 8  شعبان
+  'Ram', // 9  رمضان
+  'Shaw', // 10 شوال
+  'Dhu Q', // 11 ذو القعدة
+  'Dhu H', // 12 ذو الحجة
+];

@@ -5,6 +5,7 @@ import 'package:islami_app/azkar/azkar_screen.dart';
 import 'package:islami_app/provider/prayer_provider.dart';
 import 'package:islami_app/time/azkar_card.dart';
 import 'package:islami_app/time/prayer_card.dart';
+import 'package:islami_app/time/prayer_response.dart';
 import 'package:islami_app/time/tab_fillet.dart';
 import 'package:provider/provider.dart';
 
@@ -109,7 +110,7 @@ class TimeTab extends StatelessWidget {
                                       padding: const EdgeInsets.only(
                                           top: 12, left: 16, right: 16),
                                       child: Text(
-                                        '${prayerData.hijri.day} ${prayerData.hijri.month.substring(0, 3)}\n${prayerData.hijri.year}',
+                                        '${prayerData.hijri.day.padLeft(2, '0')} ${hijriMonthsShort[prayerData.hijri.monthNumber - 1]},\n${prayerData.hijri.year}',
                                         style: AppTextStyle.bold16white,
                                         textAlign: TextAlign.end,
                                       ),
@@ -156,8 +157,15 @@ class TimeTab extends StatelessWidget {
                                         style: AppTextStyle.bold16white
                                             .copyWith(color: AppColor.grey),
                                       ),
-                                      const Icon(Icons.volume_off,
-                                          color: AppColor.darkBrown),
+                                      IconButton(
+                                        onPressed: prayerProvider.toggleAdhan,
+                                        icon: Icon(
+                                          prayerProvider.adhanEnabled
+                                              ? Icons.volume_up
+                                              : Icons.volume_off,
+                                          color: AppColor.darkBrown,
+                                        ),
+                                      ),
                                     ],
                                   ),
                                 ),
@@ -174,6 +182,7 @@ class TimeTab extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 10),
             child: GridView.builder(
+              padding: EdgeInsets.zero,
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
               itemCount: azkarCategories.length,
