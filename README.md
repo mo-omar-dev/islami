@@ -5,9 +5,7 @@ live Quran radio, prayer times, and daily Azkar into one app.
 
 ## Screenshots
 
-| Quran | Radio | Time |
-|-------|-------|------|
-| ![Quran](screenshots/quran.png) | ![Radio](screenshots/radio.png) | ![Time](screenshots/time.png) |
+screenshots/
 
 ## Features
 
